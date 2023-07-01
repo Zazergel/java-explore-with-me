@@ -31,7 +31,7 @@ public class StatsController {
     public List<ViewStats> getStats(@RequestParam @DateTimeFormat(pattern = Constants.DT_FORMAT) LocalDateTime start,
                                     @RequestParam @DateTimeFormat(pattern = Constants.DT_FORMAT) LocalDateTime end,
                                     @RequestParam(required = false) List<String> uris,
-                                    @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+                                    @RequestParam(defaultValue = "false") Boolean unique) {
         if (start.isAfter(end) || start.isEqual(end)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
