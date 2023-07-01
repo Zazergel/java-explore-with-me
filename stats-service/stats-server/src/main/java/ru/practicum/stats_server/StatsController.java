@@ -5,16 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.stats_server.service.StatsService;
+import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats_dto.Constants;
 import ru.practicum.stats_dto.model.EndpointHit;
 import ru.practicum.stats_dto.model.ViewStats;
+import ru.practicum.stats_server.service.StatsService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -35,8 +30,8 @@ public class StatsController {
     @GetMapping(Constants.STATS_ENDPOINT)
     public List<ViewStats> getStats(@RequestParam @DateTimeFormat(pattern = Constants.DT_FORMAT) LocalDateTime start,
                                     @RequestParam @DateTimeFormat(pattern = Constants.DT_FORMAT) LocalDateTime end,
-                                    @RequestParam List<String> uris,
-                                    @RequestParam(defaultValue = "false") Boolean unique) {
+                                    @RequestParam(required = false) List<String> uris,
+                                    @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         if (start.isAfter(end) || start.isEqual(end)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
