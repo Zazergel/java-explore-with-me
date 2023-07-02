@@ -5,11 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.stats_server.StatsMapper;
-import ru.practicum.stats_server.StatsRepository;
 import ru.practicum.stats_dto.Constants;
 import ru.practicum.stats_dto.model.EndpointHit;
+import ru.practicum.stats_dto.model.ParamDto;
 import ru.practicum.stats_dto.model.ViewStats;
+import ru.practicum.stats_server.StatsMapper;
+import ru.practicum.stats_server.StatsRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,21 +33,21 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<ViewStats> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+    public List<ViewStats> getStats(ParamDto paramDto) {
         log.info("Вывод списка обращений по параметрам start = {}, end = {}, uris = {}, unique = {}",
-                start, end, uris, unique);
+                paramDto.getStart(), paramDto.getEnd(), paramDto.getUris(), paramDto.getUnique());
 
-        if (uris == null || uris.isEmpty()) {
-            if (unique) {
-                return statsRepository.getAllStatsDistinctIp(start, end);
+        if (paramDto.getUris() == null || paramDto.getUris().isEmpty()) {
+            if (paramDto.getUnique()) {
+                return statsRepository.getAllStatsDistinctIp(paramDto.getStart(), paramDto.getEnd());
             } else {
-                return statsRepository.getAllStats(start, end);
+                return statsRepository.getAllStats(paramDto.getStart(), paramDto.getEnd());
             }
         } else {
-            if (unique) {
-                return statsRepository.getStatsByUrisDistinctIp(start, end, uris);
+            if (paramDto.getUnique()) {
+                return statsRepository.getStatsByUrisDistinctIp(paramDto.getStart(), paramDto.getEnd(), paramDto.getUris());
             } else {
-                return statsRepository.getStatsByUris(start, end, uris);
+                return statsRepository.getStatsByUris(paramDto.getStart(), paramDto.getEnd(), paramDto.getUris());
             }
         }
     }

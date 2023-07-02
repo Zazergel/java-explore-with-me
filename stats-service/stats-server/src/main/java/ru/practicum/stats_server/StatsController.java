@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats_dto.Constants;
 import ru.practicum.stats_dto.model.EndpointHit;
+import ru.practicum.stats_dto.model.ParamDto;
 import ru.practicum.stats_dto.model.ViewStats;
 import ru.practicum.stats_server.service.StatsService;
 
@@ -32,9 +33,9 @@ public class StatsController {
                                     @RequestParam @DateTimeFormat(pattern = Constants.DT_FORMAT) LocalDateTime end,
                                     @RequestParam(required = false) List<String> uris,
                                     @RequestParam(defaultValue = "false") Boolean unique) {
-        if (start.isAfter(end) || start.isEqual(end)) {
+        if (!start.isBefore(end)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
-        return statsService.getStats(start, end, uris, unique);
+        return statsService.getStats(ParamDto.builder().start(start).end(end).uris(uris).unique(unique).build());
     }
 }
