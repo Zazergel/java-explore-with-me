@@ -8,6 +8,6 @@ public class Constants {
     public static final String HIT_ENDPOINT = "/hit";
     public static final String STATS_ENDPOINT = "/stats";
 
-    private Constants(){
+    private Constants() {
     }
 }
