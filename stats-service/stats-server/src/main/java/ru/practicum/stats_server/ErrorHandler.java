@@ -17,15 +17,6 @@ import java.time.format.DateTimeParseException;
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
-    @Getter
-    private static class ErrorResponse {
-        private final String error;
-
-        public ErrorResponse(String error) {
-            this.error = error;
-        }
-    }
-
     @ExceptionHandler({
             DateTimeParseException.class,
             MethodArgumentNotValidException.class,
@@ -40,11 +31,19 @@ public class ErrorHandler {
         return new ErrorResponse(exception.getMessage());
     }
 
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleException(final RuntimeException exception) {
         log.error("Error 500: {}", exception.getMessage(), exception);
         return new ErrorResponse(exception.getMessage());
+    }
+
+    @Getter
+    private static class ErrorResponse {
+        private final String error;
+
+        public ErrorResponse(String error) {
+            this.error = error;
+        }
     }
 }
