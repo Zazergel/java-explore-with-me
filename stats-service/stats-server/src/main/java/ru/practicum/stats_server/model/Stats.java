@@ -54,15 +54,20 @@ public class Stats {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "uri", nullable = false)
-    String uri;
-    @Column(name = "user_ip", nullable = false, length = 15)
-    String ip;
-    @Column(name = "created", nullable = false)
-    LocalDateTime timestamp;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "app_id")
     private App app;
+
+    @Column(name = "uri", nullable = false)
+    String uri;
+
+    @Column(name = "user_ip", nullable = false, length = 15)
+    String ip;
+
+    @Column(name = "created", nullable = false)
+    LocalDateTime timestamp;
+
 
     @Override
     public boolean equals(Object o) {

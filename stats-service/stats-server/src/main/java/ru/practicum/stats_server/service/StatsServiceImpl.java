@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class StatsServiceImpl implements StatsService {
     private final AppsRepository appsRepository;
     private final StatsRepository statsRepository;
@@ -29,7 +28,6 @@ public class StatsServiceImpl implements StatsService {
     private final AppMapper appMapper;
 
     @Override
-    @Transactional
     public void addHit(EndpointHit endpointHit) {
         App app = getOrCreateApp(endpointHit);
         log.info("Фиксируем обращение к {}", endpointHit);
