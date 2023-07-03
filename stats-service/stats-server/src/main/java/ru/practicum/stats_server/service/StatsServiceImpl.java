@@ -4,7 +4,6 @@ package ru.practicum.stats_server.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.stats_dto.Constants;
 import ru.practicum.stats_dto.model.EndpointHit;
 import ru.practicum.stats_dto.model.ParamDto;
