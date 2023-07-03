@@ -40,7 +40,7 @@ public class StatsServiceImpl implements StatsService {
         log.info("Вывод списка обращений по параметрам start = {}, end = {}, uris = {}, unique = {}",
                 paramDto.getStart(), paramDto.getEnd(), paramDto.getUris(), paramDto.getUnique());
 
-        if (paramDto.getUris().stream().anyMatch(uri -> uri.equals("/events"))) {
+        if (paramDto.getUris() == null || paramDto.getUris().isEmpty()) {
             if (paramDto.getUnique()) {
                 log.info("Получен запрос статистики по всем событиям с уникальным IP");
                 return statsRepository.getAllStatsDistinctIp(paramDto.getStart(), paramDto.getEnd());

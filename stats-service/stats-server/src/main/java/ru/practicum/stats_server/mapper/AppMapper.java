@@ -7,6 +7,7 @@ import ru.practicum.stats_server.model.App;
 
 @Mapper(componentModel = "spring")
 public interface AppMapper {
+
     @Mapping(source = "app", target = "name")
     App toApp(EndpointHit endpointHit);
 
