@@ -4,7 +4,8 @@ package ru.practicum.stats_server.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.practicum.stats_dto.Constants;
+import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.stats_dto.StatConstants;
 import ru.practicum.stats_dto.model.EndpointHit;
 import ru.practicum.stats_dto.model.ParamDto;
 import ru.practicum.stats_dto.model.ViewStats;
@@ -17,9 +18,10 @@ import ru.practicum.stats_server.repository.StatsRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Slf4j
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+@Slf4j
 public class StatsServiceImpl implements StatsService {
     private final AppsRepository appsRepository;
     private final StatsRepository statsRepository;
@@ -27,12 +29,13 @@ public class StatsServiceImpl implements StatsService {
     private final AppMapper appMapper;
 
     @Override
+    @Transactional
     public void addHit(EndpointHit endpointHit) {
         App app = getOrCreateApp(endpointHit);
         log.info("Фиксируем обращение к {}", endpointHit);
 
         statsRepository.save(statsMapper.toStats(endpointHit,
-                LocalDateTime.parse(endpointHit.getTimestamp(), Constants.DT_FORMATTER), app));
+                LocalDateTime.parse(endpointHit.getTimestamp(), StatConstants.DT_FORMATTER), app));
     }
 
     @Override

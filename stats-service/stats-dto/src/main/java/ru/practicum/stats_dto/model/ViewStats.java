@@ -8,12 +8,22 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ViewStats {
     String app;
     String uri;
     Long hits;
+
+    @Override
+    public String toString() {
+        return "ViewStats{" +
+                "app='" + app + '\'' +
+                ", uri='" + uri + '\'' +
+                ", hits=" + hits +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -28,12 +38,5 @@ public class ViewStats {
         return Objects.hash(app, uri, hits);
     }
 
-    @Override
-    public String toString() {
-        return "ViewStats{" +
-                "app='" + app + '\'' +
-                ", uri='" + uri + '\'' +
-                ", hits=" + hits +
-                '}';
-    }
+
 }
