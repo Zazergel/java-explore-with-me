@@ -22,29 +22,35 @@ import java.time.LocalDateTime;
                 "from stats s join apps a " +
                 "on s.app_id = a.id " +
                 "where s.created > :start " +
-                "and  s.created < :end and (s.uri in :uris) " +
-                "group by s.uri, a.name order by hits desc", resultSetMapping = "ViewStats")
+                "and  s.created < :end " +
+                "and (s.uri in :uris) " +
+                "group by s.uri, a.name " +
+                "order by hits desc", resultSetMapping = "ViewStats")
 @NamedNativeQuery(name = "getStatsByUrisDistinctIp",
         query = "select a.name as app, s.uri, count(distinct s.user_ip) as hits " +
                 "from stats s join apps a " +
                 "on s.app_id = a.id " +
                 "where s.created > :start " +
-                "and  s.created < :end and (s.uri in :uris) " +
-                "group by s.uri, a.name order by hits desc", resultSetMapping = "ViewStats")
+                "and  s.created < :end " +
+                "and (s.uri in :uris) " +
+                "group by s.uri, a.name " +
+                "order by hits desc", resultSetMapping = "ViewStats")
 @NamedNativeQuery(name = "getAllStats",
         query = "select a.name as app, s.uri, count(s.user_ip) as hits " +
                 "from stats s join apps a " +
                 "on s.app_id = a.id " +
                 "where s.created > :start " +
                 "and  s.created < :end " +
-                "group by s.uri, a.name order by hits desc", resultSetMapping = "ViewStats")
+                "group by s.uri, a.name " +
+                "order by hits desc", resultSetMapping = "ViewStats")
 @NamedNativeQuery(name = "getAllStatsDistinctIp",
         query = "select a.name as app, s.uri, count(distinct s.user_ip) as hits " +
                 "from stats s join apps a " +
                 "on s.app_id = a.id " +
                 "where s.created > :start " +
                 "and  s.created < :end " +
-                "group by s.uri, a.name order by hits desc", resultSetMapping = "ViewStats")
+                "group by s.uri, a.name " +
+                "order by hits desc", resultSetMapping = "ViewStats")
 @SqlResultSetMapping(name = "ViewStats", classes = {
         @ConstructorResult(
                 columns = {

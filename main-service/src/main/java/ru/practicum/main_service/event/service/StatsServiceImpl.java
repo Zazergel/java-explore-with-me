@@ -55,7 +55,7 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public Map<Long, Long> getViews(List<Event> events) {
-        log.info("Отправлен запрос на получение статистики неуникальных посещений в виде Map<eventId, count> " +
+        log.info("Отправлен запрос на получение статистики уникальных посещений в виде Map<eventId, count> " +
                 "для списка событий.");
 
         Map<Long, Long> views = new HashMap<>();
@@ -73,17 +73,16 @@ public class StatsServiceImpl implements StatsService {
 
         if (minPublishedOn.isPresent()) {
             LocalDateTime start = LocalDateTime.now().minusDays(365);
-            LocalDateTime end = LocalDateTime.now();
+            LocalDateTime end = LocalDateTime.now().plusHours(2);
             List<String> uris = publishedEvents.stream()
                     .map(Event::getId)
                     .map(id -> ("/events/" + id))
                     .collect(Collectors.toList());
 
-            List<ViewStats> stats = getStats(start, end, uris, true);
-            stats.forEach(stat -> {
-                Long eventId = Long.parseLong(stat.getUri()
-                        .split("/", 0)[2]);
-                views.put(eventId, views.getOrDefault(eventId, 0L) + stat.getHits());
+            List<ViewStats> viewStats = getStats(start, end, uris, true);
+            viewStats.forEach(viewStat -> {
+                Long eventId = Long.parseLong(viewStat.getUri().split("/", 0)[2]);
+                views.put(eventId, views.getOrDefault(eventId, 0L) + viewStat.getHits());
             });
         }
 
