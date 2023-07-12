@@ -13,7 +13,6 @@ import ru.practicum.stats_server.service.StatsService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -29,12 +28,12 @@ public class StatsController {
 
     @GetMapping(StatConstants.STATS_ENDPOINT)
     public List<ViewStats> getStats(@RequestParam @DateTimeFormat(pattern = StatConstants.DT_FORMAT) LocalDateTime start,
-                                          @RequestParam @DateTimeFormat(pattern = StatConstants.DT_FORMAT) LocalDateTime end,
-                                          @RequestParam(required = false) List<String> uris,
-                                          @RequestParam(defaultValue = "true") Boolean unique) {
+                                    @RequestParam @DateTimeFormat(pattern = StatConstants.DT_FORMAT) LocalDateTime end,
+                                    @RequestParam(required = false) List<String> uris,
+                                    @RequestParam(defaultValue = "true") Boolean unique) {
         if (!start.isBefore(end)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
-        return statsService.getStats(new ParamDto(start,end,uris,unique));
+        return statsService.getStats(new ParamDto(start, end, uris, unique));
     }
 }
