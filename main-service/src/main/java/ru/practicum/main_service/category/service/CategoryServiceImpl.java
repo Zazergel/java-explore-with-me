@@ -11,7 +11,6 @@ import ru.practicum.main_service.category.CategoryMapper;
 import ru.practicum.main_service.category.CategoryRepository;
 import ru.practicum.main_service.category.dto.CategoryDto;
 import ru.practicum.main_service.category.dto.NewCategoryDto;
-import ru.practicum.main_service.exception.ForbiddenException;
 import ru.practicum.main_service.exception.NotFoundException;
 
 import java.util.List;
@@ -60,10 +59,8 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.findById(catId)
                 .orElseThrow(() -> new NotFoundException("Категории с таким id не существует."));
 
-        if (categoryDto.getName().length() > 50) {
-            throw new ForbiddenException("Название категории должно быть 50 символов или менее!");
-        }
         categoryDto.setId(catId);
+
         return categoryMapper.toCategoryDto(categoryRepository.save(categoryMapper.categoryDtoToCategory(categoryDto)));
     }
 

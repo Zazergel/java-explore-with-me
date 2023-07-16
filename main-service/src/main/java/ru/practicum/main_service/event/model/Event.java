@@ -32,7 +32,7 @@ public class Event {
     @Column(nullable = false, length = MainConstants.MAX_LENGTH_ANNOTATION)
     String annotation;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     Category category;
 
@@ -48,7 +48,7 @@ public class Event {
     @Column(nullable = false)
     LocalDateTime eventDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     Location location;
 
@@ -61,7 +61,7 @@ public class Event {
 
     LocalDateTime publishedOn;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     User initiator;

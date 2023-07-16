@@ -2,8 +2,10 @@ package ru.practicum.main_service.category.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.main_service.MainConstants;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,6 +18,7 @@ public class CategoryDto {
     Long id;
 
     @NotBlank
+    @Size(max = MainConstants.MAX_LENGTH_CATEGORY_NAME)
     String name;
 
     @Override

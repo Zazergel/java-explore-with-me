@@ -4,7 +4,6 @@ package ru.practicum.main_service.event.service;
 import org.springframework.data.domain.Pageable;
 import ru.practicum.main_service.event.dto.*;
 import ru.practicum.main_service.event.enums.EventSortType;
-import ru.practicum.main_service.event.enums.EventState;
 import ru.practicum.main_service.event.model.Event;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
-    List<EventFullDto> getEventsByAdmin(List<Long> users, List<EventState> states, List<Long> categories,
-                                        LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size);
+    List<EventFullDto> getEventsByAdmin(EventAdminControllerParamDto paramDto);
 
     EventFullDto patchEventByAdmin(Long eventId, UpdateEventAdminRequest updateEventAdminRequest);
 

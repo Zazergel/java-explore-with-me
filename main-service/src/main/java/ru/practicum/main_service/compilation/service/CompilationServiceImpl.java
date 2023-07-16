@@ -14,7 +14,6 @@ import ru.practicum.main_service.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.main_service.event.dto.EventShortDto;
 import ru.practicum.main_service.event.model.Event;
 import ru.practicum.main_service.event.service.EventService;
-import ru.practicum.main_service.exception.ForbiddenException;
 import ru.practicum.main_service.exception.NotFoundException;
 
 import java.util.*;
@@ -39,9 +38,6 @@ public class CompilationServiceImpl implements CompilationService {
             events = eventService.getEventsByIds(newCompilationDto.getEvents());
             checkSize(events, newCompilationDto.getEvents());
         }
-        if (newCompilationDto.getTitle().length() > 50) {
-            throw new ForbiddenException("Название подборки не должно превышать 50 символов!");
-        }
 
         Compilation compilation = compilationRepository.save(compilationMapper.newDtoToCompilation(newCompilationDto, events));
 
@@ -57,9 +53,6 @@ public class CompilationServiceImpl implements CompilationService {
 
         if (updateCompilationRequest != null) {
             if (updateCompilationRequest.getTitle() != null) {
-                if (updateCompilationRequest.getTitle().length() > 50) {
-                    throw new ForbiddenException("Название подборки не должно превышать 50 символов!");
-                }
                 compilation.setTitle(updateCompilationRequest.getTitle());
             }
 

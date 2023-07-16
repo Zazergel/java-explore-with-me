@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.main_service.MainConstants;
+import ru.practicum.main_service.event.dto.EventAdminControllerParamDto;
 import ru.practicum.main_service.event.dto.EventFullDto;
 import ru.practicum.main_service.event.dto.UpdateEventAdminRequest;
 import ru.practicum.main_service.event.enums.EventState;
@@ -35,7 +36,8 @@ public class EventAdminController {
             @RequestParam(required = false) @DateTimeFormat(pattern = MainConstants.DT_FORMAT) LocalDateTime rangeEnd,
             @RequestParam(defaultValue = MainConstants.PAGE_DEFAULT_FROM) @PositiveOrZero Integer from,
             @RequestParam(defaultValue = MainConstants.PAGE_DEFAULT_SIZE) @Positive Integer size) {
-        return eventService.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
+        return eventService.getEventsByAdmin(new EventAdminControllerParamDto(users, states, categories,
+                rangeStart, rangeEnd, from, size));
     }
 
     @PatchMapping("/{eventId}")

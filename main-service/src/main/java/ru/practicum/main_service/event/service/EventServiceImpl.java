@@ -41,15 +41,16 @@ public class EventServiceImpl implements EventService {
     private final LocationMapper locationMapper;
 
     @Override
-    public List<EventFullDto> getEventsByAdmin(List<Long> users, List<EventState> states, List<Long> categories,
-                                               LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
+    public List<EventFullDto> getEventsByAdmin(EventAdminControllerParamDto paramDto) {
         log.info("Вывод событий на запрос администратора с параметрами users = {}, states = {}, categoriesId = {}, " +
                         "rangeStart = {}, rangeEnd = {}, from = {}, size = {}",
-                users, states, categories, rangeStart, rangeEnd, from, size);
+                paramDto.getUsers(), paramDto.getStates(), paramDto.getCategories(), paramDto.getRangeStart(),
+                paramDto.getRangeEnd(), paramDto.getFrom(), paramDto.getSize());
 
-        checkStartIsBeforeEnd(rangeStart, rangeEnd);
+        checkStartIsBeforeEnd(paramDto.getRangeStart(), paramDto.getRangeEnd());
 
-        List<Event> events = eventRepository.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
+        List<Event> events = eventRepository.getEventsByAdmin(paramDto.getUsers(), paramDto.getStates(), paramDto.getCategories(), paramDto.getRangeStart(),
+                paramDto.getRangeEnd(), paramDto.getFrom(), paramDto.getSize());
 
         return toEventsFullDto(events);
     }

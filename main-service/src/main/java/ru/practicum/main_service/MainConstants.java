@@ -18,6 +18,7 @@ public class MainConstants {
     public static final int MIN_LENGTH_FULL_EMAIL = 6;
     public static final int MAX_LENGTH_FULL_EMAIL = 254;
     public static final int MAX_LENGTH_CATEGORY_NAME = 50;
+    public static final int MAX_LENGTH_COMPILATION_TITLE = 50;
 
     private MainConstants() {
     }
