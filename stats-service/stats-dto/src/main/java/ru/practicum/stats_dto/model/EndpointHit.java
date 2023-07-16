@@ -10,8 +10,9 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EndpointHit {
     @NotBlank
     String app;

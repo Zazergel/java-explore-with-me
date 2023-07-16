@@ -1,4 +1,4 @@
-package ru.practicum.client;
+package ru.practicum.stats_client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import ru.practicum.stats_dto.Constants;
+import ru.practicum.stats_dto.StatConstants;
 import ru.practicum.stats_dto.model.EndpointHit;
 
 import java.time.LocalDateTime;
@@ -35,9 +35,9 @@ public class StatsClient extends BaseClient {
                 .app(appName)
                 .uri(uri)
                 .ip(ip)
-                .timestamp(timestamp.format(Constants.DT_FORMATTER))
+                .timestamp(timestamp.format(StatConstants.DT_FORMATTER))
                 .build();
-        return post(endpointHit);
+        return post(StatConstants.HIT_ENDPOINT, endpointHit);
     }
 
     public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, List<String> uris) {
@@ -60,10 +60,10 @@ public class StatsClient extends BaseClient {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
 
-        StringBuilder uriBuilder = new StringBuilder(Constants.STATS_ENDPOINT + "?start={start}&end={end}");
+        StringBuilder uriBuilder = new StringBuilder(StatConstants.STATS_ENDPOINT + "?start={start}&end={end}");
         Map<String, Object> parameters = Map.of(
-                "start", start.format(Constants.DT_FORMATTER),
-                "end", end.format(Constants.DT_FORMATTER)
+                "start", start.format(StatConstants.DT_FORMATTER),
+                "end", end.format(StatConstants.DT_FORMATTER)
         );
 
         if (uris != null && !uris.isEmpty()) {
