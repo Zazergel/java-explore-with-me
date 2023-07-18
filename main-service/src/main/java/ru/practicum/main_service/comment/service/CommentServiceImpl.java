@@ -14,7 +14,6 @@ import ru.practicum.main_service.comment.dto.NewCommentDto;
 import ru.practicum.main_service.event.enums.EventState;
 import ru.practicum.main_service.event.model.Event;
 import ru.practicum.main_service.event.service.EventService;
-import ru.practicum.main_service.exception.ForbiddenException;
 import ru.practicum.main_service.exception.NotFoundException;
 import ru.practicum.main_service.user.User;
 import ru.practicum.main_service.user.service.UserService;
@@ -149,7 +148,7 @@ public class CommentServiceImpl implements CommentService {
 
     private void checkUserIsOwner(Long id, Long userId) {
         if (!Objects.equals(id, userId)) {
-            throw new ForbiddenException("Пользователь не является владельцем!");
+            throw new DataIntegrityViolationException("Пользователь не является владельцем!");
         }
     }
 }
