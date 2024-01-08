@@ -1,4 +1,14 @@
-![Logo](https://imgur.com/Ga9QQJ6.png)
+<div class="header" markdown="1" align="center">
+
+  ![Logo](https://imgur.com/Ga9QQJ6.png)
+</div>
+<h3 align="center">Explore with me</h3>
+  <p align="center">
+    Explore new events with your friends!
+    <br/>
+    <a href="https://github.com/Zazergel/java-explore-with-me/issues">Report Bug</a> *
+    <a href="https://github.com/Zazergel/java-explore-with-me/issues">Request Feature</a>
+  </p>
 
 ## Описание
 
@@ -12,10 +22,12 @@ Explore with me — приложение-афиша. В нем можно пре
 ## Tech Stack
 Приложение состоит из основного сервиса, основной базы данных и сервиса статистики, базы данных статистики.
 Имеется возможность запускать модули в отдельных docker контейнерах. 
+# Build with
+
+<p align="left">
+    <img src="https://skillicons.dev/icons?i=java,maven,spring,postgres,hibernate,docker" />
+</p>
 
 [**Ссылка на финальный PR**](https://github.com/Zazergel/java-explore-with-me/pull/5)
 
-----
 
-| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) | ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)     | ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)              | ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) |![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) |
-| :-------| :------ | :------ | :------ | :----|
