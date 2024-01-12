@@ -113,6 +113,8 @@ public class EventServiceImpl implements EventService {
                 case REJECT_EVENT:
                     event.setState(EventState.REJECTED);
                     break;
+                default:
+                    throw new ForbiddenException("Incorrect StateAction: " + updateEventAdminRequest.getStateAction());
             }
         }
 
@@ -164,7 +166,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public EventFullDto patchEventByPrivate(Long userId, Long eventId, UpdateEventUserRequest updateEventUserRequest) {
+    public EventFullDto patchEventByPrivate(Long userId,
+                                            Long eventId,
+                                            UpdateEventUserRequest updateEventUserRequest) {
         log.info("Обновление события с id {} по запросу пользователя с id {} с новыми параметрами {}",
                 eventId, userId, updateEventUserRequest);
 
@@ -218,6 +222,8 @@ public class EventServiceImpl implements EventService {
                 case CANCEL_REVIEW:
                     event.setState(EventState.CANCELED);
                     break;
+                default:
+                    throw new ForbiddenException("Incorrect State: " + updateEventUserRequest.getStateAction());
             }
         }
 
@@ -229,9 +235,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventShortDto> getEventsByPublic(
-            String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart, LocalDateTime rangeEnd,
-            Boolean onlyAvailable, EventSortType sort, Integer from, Integer size, HttpServletRequest request) {
+    public List<EventShortDto> getEventsByPublic(String text,
+                                                 List<Long> categories,
+                                                 boolean paid,
+                                                 LocalDateTime rangeStart,
+                                                 LocalDateTime rangeEnd,
+                                                 boolean onlyAvailable,
+                                                 EventSortType sort,
+                                                 Integer from,
+                                                 Integer size,
+                                                 HttpServletRequest request) {
         log.info("Вывод событий на публичный запрос с параметрами text = {}, categoriesId = {}, paid = {}, rangeStart = {}, " +
                         "rangeEnd = {}, onlyAvailable = {}, sort = {}, from = {}, size = {}",
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
@@ -307,7 +320,7 @@ public class EventServiceImpl implements EventService {
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(events);
 
         return events.stream()
-                .map((event) -> eventMapper.toEventShortDto(
+                .map(event -> eventMapper.toEventShortDto(
                         event,
                         confirmedRequests.getOrDefault(event.getId(), 0L),
                         views.getOrDefault(event.getId(), 0L)))
@@ -319,7 +332,7 @@ public class EventServiceImpl implements EventService {
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(events);
 
         return events.stream()
-                .map((event) -> eventMapper.toEventFullDto(
+                .map(event -> eventMapper.toEventFullDto(
                         event,
                         confirmedRequests.getOrDefault(event.getId(), 0L),
                         views.getOrDefault(event.getId(), 0L)))
@@ -343,7 +356,7 @@ public class EventServiceImpl implements EventService {
                 .orElseGet(() -> locationRepository.save(newLocation));
     }
 
-    private Boolean needSort(EventSortType sort, EventSortType typeToCompare) {
+    private boolean needSort(EventSortType sort, EventSortType typeToCompare) {
         return sort != null && sort.equals(typeToCompare);
     }
 
