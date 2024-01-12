@@ -9,8 +9,8 @@ services:
       - stats-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats
-      - POSTGRES_USER=kitty
-      - POSTGRES_PASSWORD=purrrrrr
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   stats-db:
     image: postgres:14-alpine
@@ -21,8 +21,8 @@ services:
         - stats-db:/var/lib/postgresql/data
     environment:
         - POSTGRES_DB=stats
-        - POSTGRES_USER=kitty
-        - POSTGRES_PASSWORD=purrrrrr
+        - POSTGRES_USER=${DB_USERNAME}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   ewm-service:
     build: ./main-service
@@ -35,8 +35,8 @@ services:
     environment:
       - STATS_SERVER_URL=http://stats-server:9090
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
-      - POSTGRES_USER=kitty
-      - POSTGRES_PASSWORD=purrrrrr
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   ewm-db:
       image: postgres:14-alpine
@@ -47,8 +47,8 @@ services:
         - ewm-db:/var/lib/postgresql/data
       environment:
         - POSTGRES_DB=ewm
-        - POSTGRES_USER=kitty
-        - POSTGRES_PASSWORD=purrrrrr
+        - POSTGRES_USER=${DB_USERNAME}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
 
 volumes:
   stats-db:

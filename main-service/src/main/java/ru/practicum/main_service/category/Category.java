@@ -3,6 +3,7 @@ package ru.practicum.main_service.category;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "categories", schema = "public")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@DynamicUpdate
 @Getter
 @Setter
 @NoArgsConstructor

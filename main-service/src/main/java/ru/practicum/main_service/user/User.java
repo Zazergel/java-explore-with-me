@@ -3,6 +3,7 @@ package ru.practicum.main_service.user;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@DynamicUpdate
 @Getter
 @Setter
 @NoArgsConstructor

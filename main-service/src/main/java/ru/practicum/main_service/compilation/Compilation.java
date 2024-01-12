@@ -2,6 +2,7 @@ package ru.practicum.main_service.compilation;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.practicum.main_service.MainConstants;
@@ -15,6 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -3,6 +3,7 @@ package ru.practicum.main_service.event.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.practicum.main_service.MainConstants;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "events", schema = "public")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@DynamicUpdate
 @Getter
 @Setter
 @NoArgsConstructor
